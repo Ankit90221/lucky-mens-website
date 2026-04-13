@@ -9,8 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(__dirname));
 app.post('/api/add-appointment', async (req, res) => {
     const { name, phone, date, time, service, notes } = req.body;
 
