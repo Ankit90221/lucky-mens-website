@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appointment Log — Lucky Men's & Stitching Works</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .log-page { padding: 100px 40px 60px; max-width: 1100px; margin: 0 auto; }
+  .log-page h1 { font-size: 32px; font-weight: 900; margin-bottom: 8px; }
+  .log-page .subtitle { color: #777; font-size: 15px; margin-bottom: 32px; }
+  
+  .appt-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .appt-table th {
+    background: #1a1a1a; color: #fff; padding: 14px 16px;
+    text-align: left; font-weight: 700; font-size: 13px;
+    letter-spacing: .5px; text-transform: uppercase;
+  }
+  .appt-table td {
+    padding: 12px 16px; border-bottom: 1px solid #eee;
+    color: #333; vertical-align: top;
+  }
+  .appt-table tr:hover td { background: #f9f9f9; }
+  .appt-table .id-col { color: #aaa; font-weight: 600; }
+  .appt-table .date-col { font-weight: 600; white-space: nowrap; }
+  .appt-table .time-col { white-space: nowrap; }
+  
+  .loading { text-align: center; padding: 60px; color: #999; font-size: 16px; }
+  .error-msg { text-align: center; padding: 40px; color: #c0392b; font-size: 15px; }
+  .empty-msg { text-align: center; padding: 60px; color: #aaa; font-size: 16px; }
+  .back-home { display: inline-block; margin-bottom: 20px; color: #c0392b; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .back-home:hover { opacity: .75; }
+  .refresh-btn {
+    padding: 10px 24px; background: #1a1a1a; color: #fff; border: none;
+    font-size: 13px; font-weight: 600; cursor: pointer; border-radius: 3px;
+    margin-left: 16px; transition: background .2s;
+  }
+  .refresh-btn:hover { background: #333; }
+  .total-badge {
+    display: inline-block; background: #27ae60; color: #fff;
+    padding: 4px 14px; border-radius: 20px; font-size: 13px;
+    font-weight: 600; margin-left: 12px; vertical-align: middle;
+  }
+
+  @media (max-width: 700px) {
+    .log-page { padding: 90px 16px 40px; }
+    .appt-table { font-size: 12px; }
+    .appt-table th, .appt-table td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">Lucky Men's</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  <ul id="navMenu">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#catalog">Collection</a></li>
+    <li><a href="index.html#appointment">Book Appointment</a></li>
+    <li><a href="index.html#reviews">Reviews</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="log-page">
+  <a href="index.html" class="back-home">&larr; Back to Home</a>
+  <h1>Appointment Log <button class="refresh-btn" onclick="loadAppointments()">&#8635; Refresh</button></h1>
+  <p class="subtitle">All appointments sorted by date and time (ascending)</p>
+
+  <div id="appointmentLog">
+    <div class="loading">Loading appointments...</div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Lucky Men's & Stitching Works &nbsp;|&nbsp; Nagpur, Maharashtra</p>
+</footer>
+
+<script>
+  // Nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+  navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+  navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+  const API_URL = '';
+
+  function loadAppointments() {
+    const container = document.getElementById('appointmentLog');
+    container.innerHTML = '<div class="loading">Loading appointments...</div>';
+
+    fetch(`${API_URL}/api/appointments`)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success || !data.appointments.length) {
+          container.innerHTML = '<div class="empty-msg">No appointments found yet.</div>';
+          return;
+        }
+
+        const rows = data.appointments.map((a, i) => {
+          const d = new Date(a.date);
+          const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          const dateStr = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+          return `
+            <tr>
+              <td class="id-col">#${a.id}</td>
+              <td>${escapeHtml(a.name)}</td>
+              <td>${escapeHtml(a.phone)}</td>
+              <td class="date-col">${dateStr}</td>
+              <td class="time-col">${escapeHtml(a.time)}</td>
+              <td>${escapeHtml(a.service)}</td>
+              <td>${escapeHtml(a.notes || '—')}</td>
+            </tr>
+          `;
+        }).join('');
+
+        container.innerHTML = `
+          <p style="margin-bottom:16px;">Total: <span class="total-badge">${data.appointments.length} appointments</span></p>
+          <div style="overflow-x:auto;">
+            <table class="appt-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Name</th><th>Phone</th><th>Date</th><th>Time</th><th>Service</th><th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        `;
+      })
+      .catch(err => {
+        console.error(err);
+        container.innerHTML = '<div class="error-msg">Could not connect to server. Make sure Node.js server is running on port 3000.</div>';
+      });
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadAppointments();
+</script>
+</body>
+</html>

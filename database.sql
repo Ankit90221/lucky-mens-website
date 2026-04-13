@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS appointments (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    date DATE NOT NULL,
+    time VARCHAR(30) NOT NULL,
+    service VARCHAR(100) NOT NULL,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

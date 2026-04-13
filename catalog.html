@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Catalog — Lucky Men's &amp; Stitching Works</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">Lucky Men's</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  <ul id="navMenu">
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="index.html#catalog">Collection</a></li>
+    <li><a href="index.html#appointment">Book Appointment</a></li>
+    <li><a href="index.html#reviews">Reviews</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="catalog-page-header">
+  <a href="index.html" class="back-link">&#8592; Back to Home</a>
+  <h1>Full Catalog</h1>
+  <p>Browse our complete collection of custom-stitched clothing</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="catalog-filter-bar">
+  <button class="cf-btn active-cf" onclick="cfFilter('all', this)">All</button>
+  <button class="cf-btn" onclick="cfFilter('shirts', this)">Shirts &amp; Pants</button>
+  <button class="cf-btn" onclick="cfFilter('suits', this)">Suits</button>
+  <button class="cf-btn" onclick="cfFilter('kurta', this)">Indo-Western</button>
+</div>
+
+<!-- CATALOG GRID -->
+<div class="catalog-page-grid" id="catalogGrid">
+
+  <!-- Shirts & Pants -->
+  <div class="cp-card shirts">
+    <div class="cp-img-wrap">
+      <img src="images/shirt1.jpg" alt="Classic White Shirt">
+      <span class="cp-tag">Shirts &amp; Pants</span>
+    </div>
+    <div class="cp-info">
+      <h3>Classic White Shirt</h3>
+      <p>Mandarin-collar white shirt, tailored to your measurements. Perfect for casual and semi-formal occasions.</p>
+    </div>
+  </div>
+
+  <div class="cp-card shirts">
+    <div class="cp-img-wrap">
+      <img src="images/shirt2.jpg" alt="Night-Out Shirt">
+      <span class="cp-tag">Shirts &amp; Pants</span>
+    </div>
+    <div class="cp-info">
+      <h3>Night-Out Shirt</h3>
+      <p>Slim-fit dark shirt with matching trousers — custom stitched to make you stand out after dark.</p>
+    </div>
+  </div>
+
+  <!-- Suits -->
+  <div class="cp-card suits">
+    <div class="cp-img-wrap">
+      <img src="images/suit1.jpg" alt="Premium Suit">
+      <span class="cp-tag">Suits</span>
+    </div>
+    <div class="cp-info">
+      <h3>Premium Suit</h3>
+      <p>Full suit stitching in your choice of fabric and lining. Ideal for weddings, events, and boardrooms.</p>
+    </div>
+  </div>
+
+  <!-- Indo-Western -->
+  <div class="cp-card kurta">
+    <div class="cp-img-wrap">
+      <img src="images/kurta1.jpg" alt="Royal Sherwani">
+      <span class="cp-tag">Indo-Western</span>
+    </div>
+    <div class="cp-info">
+      <h3>Royal Sherwani</h3>
+      <p>Heavily embroidered sherwani with dupatta — custom stitched to make you look regal on your special day.</p>
+    </div>
+  </div>
+
+  <!-- Extra placeholder cards — replace images when available -->
+  <div class="cp-card shirts">
+    <div class="cp-img-wrap placeholder-img">
+      <img src="images/Linen.jpg" alt="Royal Sherwani">
+      <span class="cp-tag">Shirts &amp; Pants</span>
+    </div>
+    <div class="cp-info">
+      <h3>Linen Casual Shirt</h3>
+      <p>Breathable linen fabric stitched for a relaxed yet polished everyday look.</p>
+    </div>
+  </div>
+
+  <div class="cp-card suits">
+    <div class="cp-img-wrap placeholder-img">
+      <span class="cp-tag">Suits</span>
+      <img src="images/Bandhgala.jpg" alt="Royal Sherwani">
+    </div>
+    <div class="cp-info">
+      <h3>3-Piece Bandhgala Suit</h3>
+      <p>Traditional Bandhgala jacket with vest and trousers — the pinnacle of formal Indian menswear.</p>
+    </div>
+  </div>
+
+  <div class="cp-card kurta">
+    <div class="cp-img-wrap placeholder-img">
+      <span class="cp-tag">Indo-Western</span>
+       <img src="images/Pathani.jpg" alt="Royal Sherwani">
+    </div>
+    <div class="cp-info">
+      <h3>Pathani Suit</h3>
+      <p>Classic Pathani kurta and salwar in fine cotton — comfortable, stylish, and effortlessly traditional.</p>
+    </div>
+  </div>
+
+  <div class="cp-card shirts">
+    <div class="cp-img-wrap placeholder-img">
+      <span class="cp-tag">Shirts &amp; Pants</span>
+      <img src="images/Formal_Trouser.jpg" alt="Royal Sherwani">
+    </div>
+    <div class="cp-info">
+      <h3>Formal Trouser Set</h3>
+      <p>Perfectly tailored flat-front trousers with matching belt loops — a sharp addition to any wardrobe.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="catalog-page-cta">
+  <p>Don't see what you're looking for?</p>
+  <a href="index.html#appointment" class="submit-btn" style="display:inline-block;text-decoration:none;padding:14px 40px;width:auto;">Book a Customization Appointment</a>
+</div>
+
+<footer>
+  <p>&#169; 2026 Lucky Men's &amp; Stitching Works &nbsp;|&nbsp; Nagpur, Maharashtra</p>
+</footer>
+
+<script>
+  /* mobile nav */
+  const navToggle = document.getElementById('navToggle');
+  const navMenu   = document.getElementById('navMenu');
+  navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+  navMenu.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => navMenu.classList.remove('open'))
+  );
+
+  /* filter */
+  function cfFilter(cat, btn) {
+    document.querySelectorAll('.cf-btn').forEach(b => b.classList.remove('active-cf'));
+    btn.classList.add('active-cf');
+    document.querySelectorAll('.cp-card').forEach(c => {
+      c.style.display = (cat === 'all' || c.classList.contains(cat)) ? 'flex' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

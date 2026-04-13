@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Men's & Stitching Works</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">Lucky Men's</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+  <ul id="navMenu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#catalog">Catalog</a></li>
+    <li><a href="#appointment">Book Appointment</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="slide active" style="background-image:url('images/L1.png')"></div>
+  <div class="slide" style="background-image:url('images/L2.png')"></div>
+  <div class="slide" style="background-image:url('images/L3.png')"></div>
+  <div class="hero-text">
+    <h1>Lucky Men's &amp; Stitching Works</h1>
+    <p>Custom stitched clothing for every occasion</p>
+    <a href="#catalog" class="btn">Explore Catalog</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <h2>About Our Store</h2>
+  <p>Choose your favourite category from our catalog and contact us on WhatsApp. We stitch custom clothing with perfect measurements.</p>
+  <div class="visit-note">
+    <span class="badge">Walk-ins Welcome</span>
+    <p>No appointment needed for browsing or ready-to-wear purchases — visit us any time during business hours!</p>
+  </div>
+</section>
+
+<!-- CATALOG FILTER -->
+<section class="filter">
+  <h2>Our Collection</h2>
+  <div class="buttons">
+    <button class="active-filter" onclick="filterSelection('all', this)">All</button>
+    <button onclick="filterSelection('shirts', this)">Shirts &amp; Pants</button>
+    <button onclick="filterSelection('suits', this)">Suits</button>
+    <button onclick="filterSelection('kurta', this)">Indo-Western</button>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+
+  <!-- ROW 1 — full-width hero card: image left, title right -->
+  <div class="catalog-hero shirts">
+    <div class="hero-img-wrap">
+      <img src="images/shirt1.jpg" alt="Classic White Shirt">
+      <span class="item-tag">Shirts &amp; Pants</span>
+    </div>
+    <div class="hero-slogan-wrap">
+      <p class="hero-num">01</p>
+      <h3>Classic White Shirt</h3>
+      <p class="item-desc">A timeless mandarin-collar white shirt tailored to your exact measurements. Perfect for casual outings and semi-formal events alike.</p>
+    </div>
+  </div>
+
+  <!-- ROW 2 — three images side by side -->
+  <div class="catalog-row">
+
+    <div class="catalog-thumb shirts">
+      <div class="thumb-img-wrap">
+        <img src="images/shirt2.jpg" alt="Night-Out Shirt">
+        <span class="item-tag">Shirts &amp; Pants</span>
+      </div>
+      <div class="thumb-info">
+        <h4>Night-Out Shirt</h4>
+      </div>
+    </div>
+
+    <div class="catalog-thumb suits">
+      <div class="thumb-img-wrap">
+        <img src="images/suit1.jpg" alt="Premium Suit">
+        <span class="item-tag">Suits</span>
+      </div>
+      <div class="thumb-info">
+        <h4>Premium Suit</h4>
+      </div>
+    </div>
+
+    <div class="catalog-thumb kurta">
+      <div class="thumb-img-wrap">
+        <img src="images/kurta1.jpg" alt="Royal Sherwani">
+        <span class="item-tag">Indo-Western</span>
+      </div>
+      <div class="thumb-info">
+        <h4>Royal Sherwani</h4>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VIEW FULL CATALOG BUTTON -->
+  <div class="catalog-cta">
+    <a href="catalog.html" class="catalog-btn">View Full Catalog &rarr;</a>
+  </div>
+
+</section>
+
+<!-- ===== APPOINTMENT SECTION ===== -->
+<section class="appointment-section" id="appointment">
+  <div class="section-header">
+    <h2>Book a Customization Appointment</h2>
+    <p>For custom stitching &amp; tailoring, schedule a dedicated slot with our master tailor. Walk-ins are always welcome for browsing &amp; ready purchases — appointment is only needed for <strong>customization orders</strong>.</p>
+  </div>
+
+  <div class="appointment-container">
+    <!-- Info cards -->
+    <div class="appt-info">
+      <div class="info-card">
+        <div class="info-icon">&#128337;</div>
+        <h4>Business Hours</h4>
+        <p>Mon – Sat: 10:00 AM – 8:00 PM</p>
+        <p>Sunday: 11:00 AM – 6:00 PM</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">&#9997;</div>
+        <h4>What to Bring</h4>
+        <p>Fabric sample (if any), reference images, and your measurements if available.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">&#128222;</div>
+        <h4>Need Help?</h4>
+        <p>Call us at <strong>+91 8975015482</strong> or chat on WhatsApp for quick assistance.</p>
+      </div>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="appt-form-wrap">
+      <form class="appt-form" id="appointmentForm" onsubmit="submitAppointment(event)">
+        <h3>Schedule Your Appointment</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="apptName">Full Name *</label>
+            <input type="text" id="apptName" placeholder="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="apptPhone">Phone Number *</label>
+            <input type="tel" id="apptPhone" placeholder="+91 XXXXX XXXXX" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="apptDate">Preferred Date *</label>
+            <input type="date" id="apptDate" required>
+          </div>
+          <div class="form-group">
+            <label for="apptTime">Preferred Time *</label>
+            <select id="apptTime" required>
+              <option value="">-- Select a slot --</option>
+              <option>10:00 AM – 11:00 AM</option>
+              <option>11:00 AM – 12:00 PM</option>
+              <option>12:00 PM – 1:00 PM</option>
+              <option>2:00 PM – 3:00 PM</option>
+              <option>3:00 PM – 4:00 PM</option>
+              <option>4:00 PM – 5:00 PM</option>
+              <option>5:00 PM – 6:00 PM</option>
+              <option>6:00 PM – 7:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="apptService">Type of Customization *</label>
+          <select id="apptService" required>
+            <option value="">-- Select service --</option>
+            <option>Shirt / Kurta Stitching</option>
+            <option>Trouser / Pants Stitching</option>
+            <option>Full Suit Stitching</option>
+            <option>Indo-Western Outfit</option>
+            <option>Alterations &amp; Fitting</option>
+            <option>Other / Discuss in-store</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="apptNotes">Additional Notes</label>
+          <textarea id="apptNotes" rows="3" placeholder="Fabric details, design references, special requests…"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Confirm Appointment</button>
+      </form>
+
+      <!-- Success message -->
+      <div class="appt-success" id="apptSuccess" style="display:none;">
+        <div class="success-icon">&#10003;</div>
+        <h3>Appointment Booked!</h3>
+        <p id="apptSuccessMsg"></p>
+        <p class="success-note">We'll contact you on WhatsApp to confirm your slot. See you soon!</p>
+        <button onclick="resetAppointment()" class="reset-btn">Book Another</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS SECTION ===== -->
+<section class="reviews-section" id="reviews">
+  <div class="section-header light">
+    <h2>Customer Reviews</h2>
+    <p>We love hearing from our customers. Share your experience &amp; inspire others!</p>
+  </div>
+
+  <!-- Existing reviews display -->
+  <div class="reviews-grid" id="reviewsGrid">
+    <!-- Seed reviews rendered by JS -->
+  </div>
+
+  <!-- Submit review form -->
+  <div class="review-form-container">
+    <h3>Write a Review</h3>
+    <form class="review-form" id="reviewForm" onsubmit="submitReview(event)">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reviewName">Your Name *</label>
+          <input type="text" id="reviewName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <label for="reviewBill">Bill Number *</label>
+          <input type="text" id="reviewBill" placeholder="e.g. LM-20240512-001" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Rating *</label>
+        <div class="star-rating" id="starRating">
+          <span class="star" data-val="1">&#9733;</span>
+          <span class="star" data-val="2">&#9733;</span>
+          <span class="star" data-val="3">&#9733;</span>
+          <span class="star" data-val="4">&#9733;</span>
+          <span class="star" data-val="5">&#9733;</span>
+        </div>
+        <input type="hidden" id="reviewRating" value="0">
+      </div>
+
+      <div class="form-group">
+        <label for="reviewText">Your Review *</label>
+        <textarea id="reviewText" rows="4" placeholder="Tell us about your experience — fit, fabric, service…" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="reviewImage">Upload a Photo (optional)</label>
+        <div class="file-drop-area" id="fileDropArea">
+          <input type="file" id="reviewImage" accept="image/*" onchange="handleImageUpload(this)">
+          <div class="file-drop-label" id="fileDropLabel">
+            <span class="upload-icon">&#128247;</span>
+            <span>Click or drag an image here</span>
+            <span class="file-hint">JPG, PNG, WEBP — max 5 MB</span>
+          </div>
+          <img id="imagePreview" class="image-preview" style="display:none;" alt="Preview">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Review</button>
+    </form>
+
+    <!-- Review success -->
+    <div class="review-success" id="reviewSuccess" style="display:none;">
+      <div class="success-icon">&#10003;</div>
+      <h3>Thank You!</h3>
+      <p>Your review has been submitted successfully.</p>
+      <button onclick="resetReview()" class="reset-btn">Write Another</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2>Visit Our Store</h2>
+  <p>&#128205; 275, Nalanda Nagar, Bank Colony, Nari Road, Nagpur 440026</p>
+  <p>&#128222; +91 8975015482</p>
+  <a href="https://wa.me/8975015482" class="whatsapp" target="_blank">Chat on WhatsApp</a>
+</section>
+
+<section class="map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.1843084892744!2d79.10796437497977!3d21.184836082400302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c12ce37453f7%3A0x89de0f4d209c846f!2sLucky%20Men&#39;s%20%26%20Stitching%20Works!5e0!3m2!1sen!2sin!4v1772786084550!5m2!1sen!2sin"
+    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+
+<footer>
+  <p>&#169; 2026 Lucky Men's &amp; Stitching Works &nbsp;|&nbsp; Nagpur, Maharashtra</p>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
