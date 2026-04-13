@@ -75,8 +75,8 @@ function filterSelection(category, btn) {
    FORM VALIDATION + DATABASE INTEGRATION
    ========================================================= */
 
-// Backend API URL 
-const API_URL = '';
+// Backend API URL - Updated for Vercel Production
+const API_URL = window.location.origin;
 
 // --- Validation Helper: Show Error ---
 function showError(inputId, message) {
@@ -114,7 +114,6 @@ function validateName(name) {
   if (!name || name.trim() === '') {
     return 'Full name is required.';
   }
-  // Only alphabets and spaces allowed — NO numbers, NO special characters
   if (!/^[A-Za-z\s]+$/.test(name.trim())) {
     return 'Only letters and spaces allowed. No numbers or special characters.';
   }
@@ -124,7 +123,7 @@ function validateName(name) {
   if (name.trim().length > 100) {
     return 'Name must be less than 100 characters.';
   }
-  return null; // no error
+  return null; 
 }
 
 // --- Validate Phone Number ---
@@ -132,9 +131,7 @@ function validatePhone(phone) {
   if (!phone || phone.trim() === '') {
     return 'Phone number is required.';
   }
-  // Remove any spaces or dashes for validation
   const cleaned = phone.trim().replace(/[\s-]/g, '');
-  // Must be exactly 10 digits — NO letters, NO special characters
   if (!/^\d{10}$/.test(cleaned)) {
     return 'Phone must be exactly 10 digits (numbers only).';
   }
@@ -203,7 +200,6 @@ function submitAppointment(e) {
   const service = document.getElementById('apptService').value;
   const notes   = document.getElementById('apptNotes').value.trim();
 
-  // --- Run all validations ---
   let hasError = false;
 
   const nameErr = validateName(name);
@@ -221,13 +217,10 @@ function submitAppointment(e) {
   const serviceErr = validateService(service);
   if (serviceErr) { showError('apptService', serviceErr); hasError = true; }
 
-  // Stop if any validation failed
   if (hasError) return;
 
-  // Clean phone number (remove spaces/dashes)
   const cleanPhone = phone.trim().replace(/[\s-]/g, '');
 
-  // --- Send data to backend ---
   const submitBtn = document.querySelector('.appt-form .submit-btn');
   submitBtn.textContent = 'Booking...';
   submitBtn.disabled = true;
@@ -250,19 +243,16 @@ function submitAppointment(e) {
     submitBtn.disabled = false;
 
     if (data.success) {
-      // Format readable date for success message
       const [yr, mo, dy] = date.split('-');
       const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       const readableDate = `${dy} ${months[parseInt(mo)-1]} ${yr}`;
 
-      // Show success
       document.getElementById('appointmentForm').style.display = 'none';
       const successEl = document.getElementById('apptSuccess');
       document.getElementById('apptSuccessMsg').textContent =
         `Hi ${name.trim()}! Your appointment for ${service} on ${readableDate} at ${time} has been noted. (ID: #${data.appointmentId})`;
       successEl.style.display = 'block';
 
-      // Open WhatsApp
       const msg = encodeURIComponent(
         `*New Appointment Request*\n\n` +
         `Name: ${name.trim()}\nPhone: ${cleanPhone}\nDate: ${readableDate}\n` +
@@ -273,7 +263,6 @@ function submitAppointment(e) {
         window.open(`https://wa.me/918975015482?text=${msg}`, '_blank');
       }, 800);
     } else {
-      // Show server validation errors
       const errorMsg = data.errors ? data.errors.join('\n') : data.message;
       alert('Error: ' + errorMsg);
     }
@@ -282,7 +271,7 @@ function submitAppointment(e) {
     submitBtn.textContent = 'Confirm Appointment';
     submitBtn.disabled = false;
     console.error('Server error:', err);
-    alert('Could not connect to server. Make sure the Node.js server is running on port 3000.');
+    alert('Could not connect to server. Please try again later.');
   });
 }
 
@@ -369,6 +358,7 @@ function renderReviews() {
   const stored = JSON.parse(localStorage.getItem('lm_reviews') || '[]');
   const all = [...stored, ...seedReviews];
   const grid = document.getElementById('reviewsGrid');
+  if(!grid) return;
   grid.innerHTML = '';
   all.forEach(r => {
     const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
